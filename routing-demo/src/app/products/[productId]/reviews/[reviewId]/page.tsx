@@ -1,11 +1,20 @@
-export default function ReviewDetail({
+const getRandomInt = (count: number) => {
+  return Math.floor(Math.random() * count);
+};
+
+export default async function ReviewDetail({
   params,
 }: {
-  params: { productId: string; reviewId: string };
+  params: Promise<{ productId: string; reviewId: string }>;
 }) {
+  const random = getRandomInt(2);
+  const { productId, reviewId } = await params;
+  if (random === 1) {
+    throw new Error("Error loading review");
+  }
   return (
     <h1>
-      Review {params.reviewId} for product {params.productId}
+      Review {reviewId} for product {productId}
     </h1>
   );
 }
